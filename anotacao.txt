@@ -1,0 +1,6 @@
+# # Instanciar
+# cliente1 = Cliente("Relampagos Marquinhos", 41234566, "Salario", 1234, 0, 0)
+
+# cliente2 = Cliente("Mano brow", 986630, "Corrente", 987, 1, 0)
+
+# print(cliente1)
