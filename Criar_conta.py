@@ -7,10 +7,6 @@ class Criar_conta:
         #Atributos
         # Quais os atributos precisamos para criar uma conta ????????
 
-        numero_conta = 0
-        agencia = 400
-        extrato_bancario = 0
-
         # Intancio o cliente
         self.cliente = Cliente(nome_cliente, cpf, tipo_conta, numero_conta, agencia, extrato_bancario)
 

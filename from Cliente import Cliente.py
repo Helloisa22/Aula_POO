@@ -1,8 +1,9 @@
 from Cliente import Cliente
 #    arquivo.py    o nome da nossa classe
+from Criar_conta import Criar_conta
+from Adicionar_conta import Adicionar_conta
 import pandas as pd
 import os
-from Criar_conta import Criar_conta
 
 caminho_excel = "cliente_banco_Tabajara.xlsx"
 
@@ -21,25 +22,30 @@ if opcao == 1:
     cpf = int(input("CPF: "))
     tipo_conta  = str(input("Tipo da conta que deseja criar:  "))
 
-    if os.path.exists(caminho_excel):
+    df = pd.DataFrame()
+    
+    if os.path.exists(caminho_excel): # true
+        print("Arquivo ja existe")
         df = pd.read_excel(caminho_excel)
-    else:
-        df = pd.DataFrame() 
 
-        #  Instancia a classe com os dados do usuário
+        adicionar = Adicionar_conta(nome_cliente, cpf, tipo_conta)
+        novo_dado = adicionar.adicionar(df)
+
+    else: # false
+        print("Arquivo nao existe")
+
+        # Instancio para manipular os dados adicionados pelo cliente
         conta = Criar_conta(nome_cliente, cpf, tipo_conta)
 
-        #  Chama o método que retorna o DataFrame do novo cliente
+        # Identifico o caminho do excel e chamo a funcao salvar_excel
         novo_dado = conta.salvar_excel(caminho_excel)
 
-    # Concatena dados na linha
+
+    #Concat para inserir uma nova linha no excel com os dados digitados pelo
     df = pd.concat([df, novo_dado], ignore_index=True)
 
-    # salva o excel para criar conta e adicionar conta
     df.to_excel(caminho_excel, index=False)
-
-    print("Cliente cadastrado com sucesso")
-
+    
 
 elif opcao == 2:
     print("Opcao 2 selecionada")
@@ -49,30 +55,28 @@ elif opcao == 2:
 
 
 
-# Será a criacao zero do nosso excel
 from Cliente import Cliente
 import pandas as pd
 
-class Criar_conta:
+class Adicionar_conta:
     def __init__(self, nome_cliente, cpf, tipo_conta):
-        #Atributos
-        # Quais os atributos precisamos para criar uma conta ????????
         numero_conta = 0
         agencia = 400
         extrato_bancario = 0
-
-        # Intancio o cliente
         self.cliente = Cliente(nome_cliente, cpf, tipo_conta, numero_conta, agencia, extrato_bancario)
 
-    def salvar_excel(self, caminho_excel):
+    def adicionar(self, excel):
+        nova_linha = len(excel)
+        ultima_linha = excel.iloc[-1]  # pega os dados da última linha
+
         dados_cliente = {
             "nome_cliente": [self.cliente.nome_cliente],
             "cpf": [self.cliente.cpf],
             "tipo_conta": [self.cliente.tipo_conta],
-            "numero_conta": [self.cliente.numero_conta],
-            "agencia": [self.cliente.agencia],
+            "numero_conta": ultima_linha["numero_conta"] + 1,  # incrementa
+            "agencia": ultima_linha["agencia"] + 1,            # incrementa
             "extrato_bancario": [self.cliente.extrato_bancario],
         }
 
-        excel = pd.DataFrame(dados_cliente)
-        return excel
+        novo_dado = pd.DataFrame(dados_cliente)
+        return novo_dado
