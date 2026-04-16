@@ -8,17 +8,10 @@ class Criar_conta:
         # Quais os atributos precisamos para criar uma conta ????????
 
         # Intancio o cliente
-        self.cliente = Cliente(nome_cliente, cpf, tipo_conta, numero_conta, agencia, extrato_bancario)
+        self.cliente = Cliente(nome_cliente, cpf, tipo_conta)
 
     def salvar_excel(self, caminho_excel):
-        dados_cliente = {
-            "nome_cliente": [self.cliente.nome_cliente],
-            "cpf": [self.cliente.cpf],
-            "tipo_conta": [self.cliente.tipo_conta],
-            "numero_conta": [self.cliente.numero_conta],
-            "agencia": [self.cliente.agencia],
-            "extrato_bancario": [self.cliente.extrato_bancario],
-        }
+        dados_cliente = self.cliente.dicionario_cliente()
 
         excel = pd.DataFrame(dados_cliente)
         return excel

@@ -13,3 +13,9 @@ class Cliente:
     # Metodos
     def __str__(self):
         return f"Nome: {self.nome_cliente} | CPF: {self.cpf} | Tipo Conta: {self.tipo_conta} | Numero Conta: {self.numero_conta} | Agencia: {self.agencia} | Extrato bancario: {self.extrato_bancario}"
+    
+    # Metodo
+    def dicionario_cliente(self):
+        return {chave: [valor] for chave, valor in self.__dict__.items()}
+    
+    
