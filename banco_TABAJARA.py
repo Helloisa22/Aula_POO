@@ -2,6 +2,7 @@ from Cliente import Cliente
 #    arquivo.py    o nome da nossa classe
 from Criar_conta import Criar_conta
 from Adicionar_conta import Adicionar_conta
+from Acessar_conta import Acessar_conta
 import pandas as pd
 import os
 
@@ -19,7 +20,7 @@ opcao = int(input("R: "))
 if opcao == 1:
     print("Opcao 1 selecionada")
     nome_cliente = str(input("Nome completo: "))
-    cpf = int(input("CPF: "))
+    cpf = str(input("CPF: "))
     tipo_conta  = str(input("Tipo da conta que deseja criar:  "))
 
     df = pd.DataFrame()
@@ -53,3 +54,10 @@ if opcao == 1:
 
 elif opcao == 2:
     print("Opcao 2 selecionada")
+
+    # validar se o CPF informado e o numero_conta são os mesmo
+    cpf = str(input("CPF: "))
+    numero_conta = int(input("Digite o número da conta: "))
+
+    acesso = Acessar_conta(cpf, numero_conta)
+    acesso.validar_banco(caminho_excel)
