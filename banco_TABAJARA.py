@@ -60,4 +60,20 @@ elif opcao == 2:
     numero_conta = int(input("Digite o número da conta: "))
 
     acesso = Acessar_conta(cpf, numero_conta)
-    acesso.validar_banco(caminho_excel)
+    resultado = acesso.validar_banco(caminho_excel)
+
+    if resultado == True:
+        print("================================================\n")
+        print("Escolha as seguintes opções abaixo\n")
+        print("1 - Saque")
+        print("2 - Deposito")
+        print("3 - Saldo")
+        print("================================================\n")
+
+        # Crie uma classe para saque com suas regras e validações
+
+        # Crie uma classe para Deposito com suas regras e validações
+
+        # Crie uma classe para Saldo com suas regras e validações
+
+        # Boa sorte e até breve ;)
